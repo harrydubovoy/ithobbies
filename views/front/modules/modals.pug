@@ -1,0 +1,38 @@
+#modalContactForm.modal.fade(tabindex='-1', role='dialog', aria-labelledby='contact-modal', aria-hidden='true')
+    .modal-dialog.modal-dialog-centered(role='document')
+        .modal-content
+            .modal-header.text-center
+                h4.modal-title.w-100.font-weight-bold Напишите мне
+            form(novalidate).js-contact-form
+                .modal-body.mx-3
+                    .md-form.mb-4
+                        input#name.form-control.js-contact-name(type='text', name='name', required)
+                        label(for='name') Имя
+                    .md-form.mb-4
+                        input#email.form-control.js-contact-email(type='email', name='email', required)
+                        label(for='email') Почта
+                    .md-form
+                        textarea#message.md-textarea.form-control.js-contact-message(name='message', required)
+                        label(for='message') Сообщение
+                .modal-footer.d-flex.justify-content-center
+                    button.btn.btn-dark Отправить
+                .d-flex.justify-content-center.mb-4
+                    .js-result-message.red-text
+
+
+#modalSuccess.modal.fade(tabindex='-1', role='dialog', aria-labelledby='success-modal', aria-hidden='true')
+    .modal-dialog.modal-dialog-centered(role='document')
+        .modal-content
+            .modal-body.mx-3
+                .text-center
+                    +icon('done')
+                    .js-modal-success-text
+
+
+#modalError.modal.fade(tabindex='-1', role='dialog', aria-labelledby='errror-modal', aria-hidden='true')
+    .modal-dialog.modal-dialog-centered(role='document')
+        .modal-content
+            .modal-body.mx-3
+                .text-center
+                    +icon('error')
+                    .js-modal-error-text

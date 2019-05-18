@@ -1,0 +1,29 @@
+extends layout
+
+include modules/aside
+include components/card
+
+block title
+    title= title
+
+block content
+    .wrapper
+        .section-blog
+            if posts.length
+                h2.search-title!= `Найдено по запросу: <strong сlass="text-muted">${string}</strong>`
+
+                section.section-posts
+                    if posts.length
+                        .row
+                            each post in posts
+                                .col-md-4.col-lg-3
+                                    +card(post)
+                    else
+                        p Постов пока нет...
+
+                    include components/pagination
+
+            else
+                h2!= `По запросу ничего не найдено...`
+
+            +aside(categories)(class='categories_hidden')

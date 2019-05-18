@@ -1,0 +1,19 @@
+extends layout
+
+include components/title
+include components/no-result
+include modules/post-table
+
+block title
+    title!= title
+
+block content
+    +title('Posts')
+    div
+        if posts
+            +postTable(posts)
+        else
+            +noResult('There is no post yet')
+
+    .uk-margin-auto-top
+        include components/pagination

@@ -1,0 +1,50 @@
+extends layout
+
+include components/title
+include components/flash-messages
+
+block title
+    title!= title
+
+block content
+    div
+        .uk-grid-collapse.uk-text-center(class='uk-child-width-1-2@s', uk-grid='')
+            div
+                .uk-tile.uk-tile-default
+                    p.uk-h4 10 Posts
+            div
+                .uk-tile.uk-tile-muted
+                    p.uk-h4 3 Category
+            div
+                .uk-tile.uk-tile-primary
+                    p.uk-h4 57 Comments
+            div
+                .uk-tile.uk-tile-secondary
+                    p.uk-h4 113 Views
+
+        if posts.length
+            .uk-margin-large-top
+                +title('New Comments')
+                table.uk-table.uk-table-justify.uk-table-divider
+                    thead
+                        tr
+                            th.uk-width-small Date
+                            th Title
+                            th Category
+                            th Comments
+                    tbody
+                        each post in posts
+                            - const id = post._id
+                            - const date = formatedDate(post.createdAt)
+                            - const header = post.title
+                            - const category = post.category.name
+                            - const comments = post.comments
+                            - const commentsNotApproved = comments.filter(comment => !comment.approved)
+
+                            tr
+                                td= date
+                                td= header
+                                td= category
+                                td
+                                    = `${comments.length}/${commentsNotApproved.length}`
+                                    a(href=`comments/${id}`, uk-icon='chevron-double-right').uk-icon-button.uk-margin-small-left

@@ -1,0 +1,14 @@
+.pagination-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include media(sm) {
+    display: none;
+  }
+}
+
+.pagination .page-item.active .page-link,
+.pagination .page-item.active .page-link:hover{
+  background-color: $Dark;
+  color: $Supernova;
+}

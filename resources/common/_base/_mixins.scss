@@ -1,0 +1,67 @@
+@mixin square($parapm) {
+  width: $parapm + px;
+  height: $parapm + px;
+}
+
+@mixin circle($parapm) {
+  width: $parapm + px;
+  height: $parapm + px;
+  border-radius: 100%;
+}
+
+@mixin size($width, $height) {
+  width: $width + px;
+  height: $height + px;
+}
+
+
+@mixin wrapper($width) {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 15px;
+  height: 100%;
+  position: relative;
+  max-width: $width + px;
+}
+
+@mixin row() {
+  display: flex;
+  margin: 0 -15px;
+}
+
+@mixin col($width) {
+  padding: 0 15px;
+  @for $i from 12 through 2 {
+    @if $width == $i {
+      width: calc(100%/$i);
+    }
+  }
+}
+
+@mixin transition-in {
+  transition: all .25s ease-in;
+}
+
+@mixin transition-out {
+  transition: all .25s ease-out;
+}
+
+@mixin media($media) {
+  @if $media == 'xs' {
+    @media screen and (max-width: 576px) {
+      @content;
+    }
+  } @else if $media == 'sm' {
+    @media screen and (max-width: 768px) {
+      @content;
+    }
+  } @else if $media == 'md' {
+    @media screen and (max-width: 920px) {
+      @content;
+    }
+  } @else if $media == 'lg' {
+    @media screen and (max-width: 1200px) {
+      @content;
+    }
+  }
+}

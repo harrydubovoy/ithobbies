@@ -1,0 +1,101 @@
+extends layout
+
+include modules/aside
+
+block title
+    title= title
+
+block snippets
+    - const id = article._id
+    - const name = article.title
+    - const description = article.description
+    - const image = article.image
+    - const content = article.content
+    - const date = formatedDate(article.createdAt)
+    - const comments = article.comments.reverse() || []
+
+    - const imageUrl = `${domain}/uploads/images/main/${image}`
+
+    meta(name='twitter:card', content='summary')
+    meta(name='twitter:site', content='@IT_Hobbies')
+    meta(name='twitter:title', content=name)
+    meta(name='twitter:description', content=description)
+
+    meta(property='og:type', content='article')
+    meta(property='og:title', content=name)
+    meta(property='og:url', content=url)
+    meta(property='og:image', content=imageUrl)
+    meta(property='article:author', content='itHobbies')
+
+block content
+    section(itemscope='', itemtype='http://schema.org/Article').section-article
+        // microdata
+        div(style={'display': 'none'})
+            span(itemprop='description')= description
+            div(itemprop='image', itemscope='', itemtype='http://schema.org/ImageObject')
+                meta(itemprop='height', content='')
+                meta(itemprop='width', content='')
+                meta(itemprop='url', content=imageUrl)
+                img(src=imageUrl, alt=name)
+            span(itemprop='author') itHobbies
+            div(itemprop='publisher', itemscope='itHobbies', itemtype='http://schema.org/Organization')
+                div(itemprop="logo" itemscope='' itemtype="http://schema.org/ImageObject")
+                    meta(itemprop="url" content=domain)
+                span(itemprop='name') itHobbies
+
+        //if categories.length
+        +aside(categories, category)(class='categories_hidden')
+        .article
+            .wrapper
+                .head__article
+                    h1(itemprop='headline').title-h1.articl__title!= name
+                .article__inner--center
+                    img.article__img(src=`/uploads/images/${image}`, alt=name)
+            .wrapper-small
+                article.article__content
+                    .single-page-content(itemprop='articleBody')!= content
+
+                .article__footer
+                    time(itemprop='datePublished', content=article.createdAt).article__date= date
+                    time(itemprop='dateModified', content=article.updatedAt, style={'display':'none'})
+                    ul.social-list.article__social-list
+                        li.social-list__item
+                            a.social-list__link.social-list__link_circle(href=`https://twitter.com/share?url=${url}&amp;text=${name}&amp;hashtags=${category}` target='_blank')
+                                +icon('share-twitter')(class='social-list__icon')
+                        li.social-list__item
+                            a.social-list__link.social-list__link_circle(href=`http://www.facebook.com/sharer.php?u=${url}`, target='_blank')
+                                +icon('share-facebook')(class='social-list__icon')
+
+            .wrapper
+                if comments.length
+                    .article__comments
+                        ul.comments
+                            each comment in comments
+                                - const author = comment.author
+                                - const text = comment.text
+                                - const date = formatedDate(comment.date)
+                                li.comments__item.js-comment__item(data-name=author)
+                                    .comments__head
+                                        .comments__name= author
+                                        .comments__date= date
+                                    .comments__text= text
+
+                .article__comment-form
+                    h2.article__comment-form-title Что скажете?
+                    form.comment-form.js-comment-form(novalidate, data-id=id)
+                        .row
+                            .col-md-6
+                                .md-form.comment-form__item
+                                    input#name.form-control.js-comment-name(type='text', name='author', required)
+                                    label(for='name') Имя
+                            .col-md-6
+                                .md-form.comment-form__item
+                                    input#email.form-control.js-comment-email(type='email', name='email', required)
+                                    label(for='email') Почта
+                        .md-form.comment-form__item.mt-4
+                            textarea#message.md-textarea.form-control.js-comment-body(required, name='text')
+                            label(for='message') Коммент
+                        .d-flex.justify-content-center.mb-4
+                            button.btn.btn-dark Отправить
+                        .d-flex.justify-content-center
+                            .js-result-message.red-text

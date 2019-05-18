@@ -1,0 +1,14 @@
+mixin card(post)
+    - const thumb = post.thumb
+    - const title = post.title
+    - const slug = post.slug
+    - const category = post.category.slug
+
+    .card.blog__cards
+        .view.overlay
+            img.card-img-top(src=`/uploads/images/${thumb}`, alt=title)
+            a(href=`${category}/${slug}`)
+                .mask.rgba-white-slight
+        .card-body
+            h4.card-title!= title
+            a.btn.btn-dark(href=`${category}/${slug}`) Read more

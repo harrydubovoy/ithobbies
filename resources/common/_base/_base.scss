@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,400i,500,700,700i,900&subset=cyrillic,cyrillic-ext,latin-ext');
+
+$Roboto: 'Roboto', Arial, sans-serif;
+
+
+html {
+  font-size: 16px;
+  @include media(sm) {
+    font-size: 14px;
+  }
+}
+  
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+  font-family: $Roboto;
+  font-size: 1rem;
+  line-height: 1.85;
+  font-weight: 400;
+  color: $Dark;
+  box-sizing: border-box;    
+  padding: 0;
+  margin: 0;
+  background-color: $White;
+}
+
+.main {
+  flex: 1 0 0;
+  @include media(sm) {
+    padding-top: 85px;
+  }
+}
+
+
+.wrapper{
+  padding: 0 15px;
+  @include wrapper(1200)
+}
+
+.wrapper-small{
+  padding: 0 15px;
+  @include wrapper(900)
+}
+
+
+ul, ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+@for $i from 1 through 6 {
+  h#{$i} {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.background-store,
+.modal-store,
+.svg-store,
+.hidden {
+  display: none;
+}

@@ -1,0 +1,10 @@
+.footer-page {
+  display: none;
+  justify-content: center;
+  background-color: $Dark;
+  padding: 20px 0;
+  @include media(sm) {
+    display: flex;
+    padding: 13px 0;
+  }
+}

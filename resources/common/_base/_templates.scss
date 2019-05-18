@@ -1,0 +1,19 @@
+%link {
+    text-decoration: none;
+    color: $Dark;
+    &:hover {
+      text-decoration: none;
+      color: $Dark;
+    }
+  }
+  
+  %title-h2 {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+  }
+      
+  %img {
+      max-width: 100%;
+    height: auto;
+  }

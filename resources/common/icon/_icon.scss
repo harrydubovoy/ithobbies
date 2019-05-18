@@ -1,0 +1,43 @@
+.icon-facebook {
+  @include square(25)
+}
+
+.icon-twitter {
+  @include square(25)
+}
+
+.icon-youtube {
+  @include square(25)
+}
+
+.icon-mail {
+  @include size(28, 25)
+}
+
+.icon-menu {
+  @include size(40, 35)
+}
+
+.icon-search {
+  @include size(35, 25)
+}
+
+.icon-share-facebook {
+  @include square(20);
+  fill: #3b5999;
+}
+
+.icon-share-twitter {
+  @include square(20);
+  fill: #55acee;
+}
+
+.icon-done {
+  @include square(80);
+  fill: #76FF03;
+}
+
+.icon-error {
+  @include square(80);
+  fill: #FF1744;
+}

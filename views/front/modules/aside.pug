@@ -1,0 +1,7 @@
+mixin aside(categories, currentSlug)
+    aside.categories.js-categories&attributes(attributes)
+        ul.list-group
+            each category in categories
+                - const name = category.name
+                - const slug = category.slug
+                a.list-group-item.list-group-item-action(href=`/${slug}` class=`${currentSlug == slug ? 'active' : ''}`)= name

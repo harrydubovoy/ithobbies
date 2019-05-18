@@ -1,0 +1,27 @@
+extends layout
+
+include components/title
+
+block title
+    title!= title
+
+block content
+    +title('Files')
+    div
+        form(action='')
+            .uk-child-width-1-4(uk-grid='')
+                label.uk-inline
+                    .uk-card.uk-card-default
+                        .uk-card-media-top
+                            img(src='https://getuikit.com/docs/images/light.jpg', alt='')
+                    input.uk-position-top-right(type='checkbox')
+                label.uk-inline
+                    .uk-card.uk-card-default
+                        .uk-card-media-top
+                            img(src='https://getuikit.com/docs/images/light.jpg', alt='')
+                    input.uk-position-top-right(type='checkbox')
+            .uk-margin.uk-text-right
+                button.uk-button.uk-button-danger Delete
+
+    .uk-margin-auto-top
+        include components/pagination

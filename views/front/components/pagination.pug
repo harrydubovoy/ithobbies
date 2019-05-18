@@ -1,0 +1,16 @@
+- const hasPrev = paginate.hasPreviousPages
+- const hasNext = paginate.hasNextPages(pageCount)
+
+if  hasPrev || hasNext
+    nav.pagination-nav
+        ul.pagination.pagination-nav__list
+            li.page-item(class=`${!hasPrev ? 'disabled' : ''}`)
+                a.page-link(tabindex='-1' href=paginate.href(true)) Previous
+            if pages
+                each page in pages
+                    - const number = page.number
+                    - const url = page.url
+                    li.page-item(class=`${number == pageCurrent ? 'active' : ''}`)
+                        a.page-link(href=url)= number
+            li.page-item(class=`${!hasNext ? 'disabled' : ''}`)
+                a.page-link(href=paginate.href()) Next

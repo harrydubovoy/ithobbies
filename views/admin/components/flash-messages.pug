@@ -1,0 +1,5 @@
+mixin flashMessage(messages)
+    if messages
+        for message, type in messages
+            div(uk-alert='' class=`uk-alert-${type}`)
+                p= message

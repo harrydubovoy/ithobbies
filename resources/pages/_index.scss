@@ -1,0 +1,19 @@
+.blog__cards {
+  margin-bottom: 30px;
+}
+
+.category-name {
+  display: none;
+  @include media(sm) {
+    display: block;
+    font-size: 1.9rem;
+    color: $Dark;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 40px;
+  }
+}
+
+.search-title {
+  margin-bottom: 40px;
+}

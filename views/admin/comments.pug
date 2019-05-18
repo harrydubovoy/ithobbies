@@ -1,0 +1,49 @@
+extends layout
+
+include components/title
+
+block title
+    title!= title
+
+block content
+    +title('Comments')
+    .uk-margin-medium-bottom
+        strong For post:
+        |
+        |
+        a(href=`/admin/edit-post/${_id}`).uk-link-heading= title
+    div
+        table.uk-table.uk-table-justify.uk-table-divider
+            thead
+                tr
+                    th.uk-width-small Info
+                    th Comment
+                    th.uk-text-right Actions
+            tbody
+                if comments.length
+                    each comment in comments
+                        - const id = comment.id
+                        - const author = comment.author
+                        - const email = comment.email
+                        - const date = formatedDate(comment.date)
+                        - const approved = comment.approved
+                        - const text = comment.text
+                        tr.js-container(data-post-id=_id, data-comment-id=id)
+                            td
+                                ul.uk-list
+                                    li= date
+                                    li= author
+                                    li
+                                        a.uk-link-muted(href=email)= email
+                            td= text
+                            td
+                                .uk-grid-small.uk-flex-right(uk-grid='')
+                                    div
+                                        if !approved
+                                            button.uk-icon-button.js-comment-approved(type=button, title='Approve', uk-icon='check')
+                                    div
+                                        button.uk-icon-button.js-comment-remove(type=button, uk-icon='trash')
+
+
+    .uk-margin-auto-top
+        //include components/pagination

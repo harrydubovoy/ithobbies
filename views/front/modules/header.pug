@@ -1,0 +1,18 @@
+include socials
+
+header.header-page
+    .wrapper
+        .header.js-header
+            a.logo(href='/') IT.hobby()
+            .header__group
+                ul.utils.header__utils
+                    li.utils__item
+                        button.utils__btn.js-search
+                            +icon('search')(class='utils__icon')
+                    li.utils__item
+                        button.utils__btn.js-contact(href='#', data-toggle='modal', data-target='#modalContactForm')
+                            +icon('mail')(class='utils__icon')
+                +socials()(class='header__social-list')
+                +icon('menu')(class='header__menu js-menu')
+            form(method='GET' action='/search').search.header__search.js-header__search
+                input.form-control.search__input(type='text', name='search', placeholder='Найти...', aria-label='Search')
