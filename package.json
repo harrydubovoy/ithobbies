@@ -1,11 +1,20 @@
 {
   "scripts": {
-    "start": "node server.js",
-    "watch": "nodemon server.js"
+    "start server": "node server.js",
+    "watch server": "nodemon server.js",
+    "watch webpack": "webpack --watch --mode=development",
+    "build webpack": "webpack --mode=production",
+    "start gulp": "gulp default"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "@tinymce/tinymce-react": "^3.1.1",
+    "antd": "^3.18.2",
+    "axios": "^0.18.0",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^2.1.1",
     "csso": "^3.5.1",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^6.0.0",
@@ -20,16 +29,23 @@
     "gulp-svg-sprite": "^1.5.0",
     "gulp-svgmin": "^2.1.0",
     "gulp-uglify": "^3.0.1",
-    "node-sass": "^4.11.0"
+    "mini-css-extract-plugin": "^0.7.0",
+    "node-sass": "^4.11.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
+    "tinymce": "^5.0.7",
+    "uuid": "^3.3.2",
+    "webpack": "^4.32.1",
+    "webpack-cli": "^3.3.2"
   },
   "dependencies": {
     "cross-env": "^5.2.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.2",
-    "express-flash": "0.0.2",
     "express-paginate": "^1.0.0",
     "express-session": "^1.15.6",
-    "express-validator": "^5.3.1",
     "helmet": "^3.18.0",
     "jimp": "^0.6.0",
     "moment": "^2.23.0",

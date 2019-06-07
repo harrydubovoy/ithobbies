@@ -1,0 +1,52 @@
+html,
+body {
+    height: 100%;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+.main-image {
+    height: 400px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.alert {
+    position: absolute;
+    right: 40px;
+    z-index: 5;
+    max-width: 340px;
+}
+
+.content {
+    padding: 20px;
+    background: #fff;
+    min-height: 100vh;
+}
+
+.content--login-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-form {
+    width: 100%;
+    max-width: 360px;
+    padding: 30px;
+    border: 1px solid #e2e2e2;
+}
+
+.aside-menu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.aside-menu li:nth-last-child(2) {
+    margin-top: auto;
+}

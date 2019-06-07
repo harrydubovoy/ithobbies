@@ -2,9 +2,6 @@
 const express = require('express');
 const router = express.Router();
 
-// Services
-const validate = require('../app/services/validate');
-
 // Сontroller
 const Posts = require(`${global.MODULE_PATH.FRONT_CONTROLLER}/posts.controller`);
 const Comment = require(`${global.MODULE_PATH.FRONT_CONTROLLER}/comment.controller`);
