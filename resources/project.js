@@ -113,7 +113,7 @@ $(document).ready(() => {
         if(canSend) {
             data = {
                 id,
-                name: name.val(),
+                author: name.val(),
                 email: email.val(),
                 text: body.val()
             };

@@ -1,59 +1,58 @@
 // Models
+const { PostsModel } = require(`${global.MODULE_PATH.MODEL}/post.model`);
 const { CategoriesModel } = require(`${global.MODULE_PATH.MODEL}/category.model`);
 
-// Services
-const { validateMessage } = require('../../services');
 
 async function renderAll (req, res) {
+  try {
     const categories = await CategoriesModel.find();
 
-    res.render('admin/categories', {
-        title: 'Dashboard - Categories',
-        categories
-    })
+    res.json(categories);
+  } catch (e) {
+    res.status(400).redirect('back');
+  }
 }
 
 async function create (req, res) {
-    const data = req.body;
-    const category = new CategoriesModel(data);
+  const { name, slug } = req.body;
+  const category = new CategoriesModel({name, slug});
 
-    try {
-        await category.save();
-        req.flash('success', 'Category created');
-        res.redirect('back');
-    } catch (e) {
-        req.flash('danger', `Something went wrong: ${validateMessage(req)}`);
-        res.status(400).redirect('back');
-    }
+  try {
+    await category.save();
+    res.send('Category created');
+  } catch (error) {
+    res.status(400).send(`Something went wrong: ${error}`);
+  }
 }
 
 async function edit (req, res) {
-    const _id = req.body.id;
-    const name = req.body.name;
-    const slug = req.body.slug;
+  const _id = req.body._id;
+  const name = req.body.name;
+  const slug = req.body.slug;
 
-    try {
-        await CategoriesModel.findByIdAndUpdate({_id}, { $set: { name, slug }});
-        res.send('Category changed');
-    } catch (e) {
-        res.send('Something went wrong', e);
-    }
+  try {
+    await CategoriesModel.findByIdAndUpdate({_id}, { $set: { name, slug }});
+    res.send('Category edited');
+  } catch (error) {
+    res.status(400).send(`Something went wrong: ${error}`);
+  }
 }
 
 async function remove (req, res) {
-    const _id = req.body.id;
+  const { _id } = req.body;
 
-    try {
-        await CategoriesModel.findByIdAndRemove({_id});
-        res.send('Category deleted');
-    } catch (e) {
-        res.send('Something went wrong', e);
-    }
+  try {
+    await PostsModel.updateMany({ category: _id }, { category: null });
+    await CategoriesModel.findByIdAndRemove({_id});
+    res.send('Category deleted');
+  } catch (e) {
+    res.status(400).send('Something went wrong', e);
+  }
 }
 
 module.exports = {
-    renderAll,
-    create,
-    edit,
-    remove
+  renderAll,
+  create,
+  edit,
+  remove
 };

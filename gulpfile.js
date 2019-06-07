@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const plugins = require('gulp-load-plugins')();
-const browserSync = require('browser-sync').create() ;
+
 plugins.sass.compiler = require('node-sass');
 
 gulp.task('sass', () => {
@@ -14,7 +14,6 @@ gulp.task('sass', () => {
         }))
         .pipe(plugins.sourcemaps.write('.'))
         .pipe(gulp.dest('public/stylesheet/'))
-        .pipe(browserSync.stream())
 });
 
 gulp.task('javascript', () => {
@@ -26,7 +25,6 @@ gulp.task('javascript', () => {
         .pipe(plugins.uglify())
         .pipe(plugins.sourcemaps.write('.'))
         .pipe(gulp.dest('public/javascript'))
-        .pipe(browserSync.stream())
 });
 
 const jquery = './resources/library/jquery/jquery-3.3.1.min.js';
@@ -36,7 +34,6 @@ gulp.task('libraryJS', () => {
         .pipe(plugins.concat('library.js'))
         .pipe(plugins.uglify())
         .pipe(gulp.dest('public/javascript'))
-        .pipe(browserSync.stream())
 });
 
 gulp.task('svg', () => {

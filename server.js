@@ -8,7 +8,6 @@ const paginate = require('express-paginate');
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const session = require('express-session');
-const flash = require('express-flash');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const passport = require('passport');
@@ -40,9 +39,6 @@ app.use(session({
   cookie: { maxAge: 43200000 }
 }));
 
-// flash
-app.use(flash());
-
 // helmet
 app.use(helmet());
 
@@ -50,7 +46,7 @@ app.use(helmet());
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 app.use(morgan('combined', { stream: accessLogStream }));
 
-fs.watchFile('access.log', (curr, prev) => {
+fs.watchFile('access.log', (curr) => {
 
   const max = 52428800; // 50Mb
   const size = curr.size;

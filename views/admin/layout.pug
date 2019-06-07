@@ -1,37 +1,20 @@
-include components/flash-messages
-
 <!DOCTYPE html>
 html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        meta(http-equiv="X-UA-Compatible", content="ie=edge")
-        link(rel='shortcut icon', href='/favicon.ico', type='image/x-icon')
-        block title
-        // UIKit CSS
-        link(rel='stylesheet', href='/admin/stylesheet/uikit.min.css')
-        link(rel='stylesheet', href='/admin/stylesheet/dashboard.css')
-
-
-    body.uk-flex.uk-flex-column
-        section.uk-grid-collapse.uk-height-1-1(uk-grid='')
-            include modules/sidebar
-            main.uk-width-expand.uk-flex.uk-flex-column
-                include modules/header
-                section.uk-flex-1
-                    .uk-container.uk-padding.uk-flex.uk-flex-column.uk-height-1-1
-                        .js-flash-message
-                        +flashMessage(locals.messages)
-                        block content
-
-        include modules/modals
-
-        script(type='text/javascript', src='/admin/javascript/jquery-3.4.1.min.js')
-        // Include Editor JS.
-        script(src='/admin/javascript/tinymce/tinymce.min.js')
-        // UIKit JS
-        script(src='/admin/javascript/uikit.min.js')
-        script(src='/admin/javascript/uikit-icons.min.js')
-        // Admin
-        script(src='/admin/javascript/tinymce.js')
-        script(src='/admin/javascript/dashboard.js')
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    link(rel='shortcut icon', href='/favicon.ico', type='image/x-icon')
+    link(rel='stylesheet' href='/admin/stylesheet/dashboard.min.css')
+    block Dashboard
+  body
+    #root
+      div(style={
+        'position': 'absolute',
+        'top': '50%',
+        'left': '50%',
+        'transform': 'translate(-50%)'
+      }) Loading...
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.9.2/tinymce.min.js')
+    script(src='/admin/javascript/vendor.bundle.js')
+    script(src='/admin/javascript/dashboard.bundle.js')
