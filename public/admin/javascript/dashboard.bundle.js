@@ -1791,7 +1791,7 @@ function pathToRegexp (path, keys, options) {
 
 /***/ }),
 
-/***/ 29:
+/***/ 26:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4497,7 +4497,7 @@ function Aside() {
   }, "Find"))), react_default.a.createElement(menu["b" /* default */].Item, {
     key: "5"
   }, react_default.a.createElement(react_router_dom_Link, {
-    to: "/admin/files"
+    to: "/admin/images"
   }, react_default.a.createElement(icon["a" /* default */], {
     type: "picture"
   }), react_default.a.createElement("span", {
@@ -4722,7 +4722,7 @@ function (_React$Component) {
 var divider = __webpack_require__(153);
 
 // EXTERNAL MODULE: ./resources/admin/components/Notification.jsx
-var Notification = __webpack_require__(29);
+var Notification = __webpack_require__(26);
 
 // CONCATENATED MODULE: ./resources/admin/pages/Posts.jsx
 function Posts_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { Posts_typeof = function _typeof(obj) { return typeof obj; }; } else { Posts_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return Posts_typeof(obj); }
@@ -4765,7 +4765,8 @@ function (_React$Component) {
 
     _this = Posts_possibleConstructorReturn(this, Posts_getPrototypeOf(Posts).call(this, props));
     _this.state = {
-      posts: []
+      posts: [],
+      loading: true
     };
     return _this;
   }
@@ -4779,7 +4780,8 @@ function (_React$Component) {
         var data = _ref.data;
 
         _this2.setState({
-          posts: data
+          posts: data,
+          loading: false
         });
       })["catch"](function (error) {
         Object(Notification["a" /* Notification */])(error, 'error');
@@ -4791,7 +4793,9 @@ function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
-      var posts = this.state.posts;
+      var _this$state = this.state,
+          posts = _this$state.posts,
+          loading = _this$state.loading;
       return react_default.a.createElement("div", null, react_default.a.createElement(row["a" /* default */], {
         gutter: 16
       }, react_default.a.createElement(col["a" /* default */], {
@@ -4810,7 +4814,8 @@ function (_React$Component) {
         rowKey: function rowKey(record) {
           return record._id;
         },
-        dataSource: posts
+        dataSource: posts,
+        loading: loading
       }, react_default.a.createElement(Posts_Column, {
         title: "Date",
         dataIndex: "createdAt",
@@ -4957,7 +4962,8 @@ function Categories_setPrototypeOf(o, p) { Categories_setPrototypeOf = Object.se
 
 
 
-var Categories_Title = typography["a" /* default */].Title;
+var Categories_Title = typography["a" /* default */].Title,
+    Categories_Text = typography["a" /* default */].Text;
 
 var Categories_Categories =
 /*#__PURE__*/
@@ -4995,7 +5001,10 @@ function (_React$Component) {
         span: 21
       }, react_default.a.createElement(Categories_Title, {
         level: 2
-      }, "Categories")), react_default.a.createElement(col["a" /* default */], {
+      }, "Categories"), react_default.a.createElement(Categories_Text, {
+        type: "secondary",
+        className: "description"
+      }, react_default.a.createElement("sup", null, "*"), "Some posts may be in this category. After deleting such posts, you need to assign another category")), react_default.a.createElement(col["a" /* default */], {
         span: 3
       }, react_default.a.createElement(es_button["a" /* default */], {
         onClick: function onClick() {
@@ -5204,7 +5213,7 @@ var es_form = __webpack_require__(445);
 var upload = __webpack_require__(447);
 
 // EXTERNAL MODULE: ./node_modules/antd/es/select/index.js
-var es_select = __webpack_require__(44);
+var es_select = __webpack_require__(45);
 
 // EXTERNAL MODULE: ./node_modules/antd/es/radio/index.js
 var es_radio = __webpack_require__(89);
@@ -5635,7 +5644,6 @@ function (_React$Component) {
           });
         }
       })["catch"](function (error) {
-        Object(Notification["a" /* Notification */])(error, 'error');
         console.log(error);
       });
     }
@@ -6358,6 +6366,167 @@ function (_React$Component) {
 }(react_default.a.Component);
 
 /* harmony default export */ var pages_Search = (Search_Posts);
+// CONCATENATED MODULE: ./resources/admin/pages/Images.jsx
+function Images_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { Images_typeof = function _typeof(obj) { return typeof obj; }; } else { Images_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return Images_typeof(obj); }
+
+function Images_toConsumableArray(arr) { return Images_arrayWithoutHoles(arr) || Images_iterableToArray(arr) || Images_nonIterableSpread(); }
+
+function Images_nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function Images_iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function Images_arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function Images_classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function Images_defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function Images_createClass(Constructor, protoProps, staticProps) { if (protoProps) Images_defineProperties(Constructor.prototype, protoProps); if (staticProps) Images_defineProperties(Constructor, staticProps); return Constructor; }
+
+function Images_possibleConstructorReturn(self, call) { if (call && (Images_typeof(call) === "object" || typeof call === "function")) { return call; } return Images_assertThisInitialized(self); }
+
+function Images_getPrototypeOf(o) { Images_getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return Images_getPrototypeOf(o); }
+
+function Images_assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function Images_inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) Images_setPrototypeOf(subClass, superClass); }
+
+function Images_setPrototypeOf(o, p) { Images_setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return Images_setPrototypeOf(o, p); }
+
+
+
+
+
+var Images_Title = typography["a" /* default */].Title;
+
+var Images_Images =
+/*#__PURE__*/
+function (_React$Component) {
+  Images_inherits(Images, _React$Component);
+
+  function Images(props) {
+    var _this;
+
+    Images_classCallCheck(this, Images);
+
+    _this = Images_possibleConstructorReturn(this, Images_getPrototypeOf(Images).call(this, props));
+    _this.state = {
+      images: [],
+      willBeRemoved: []
+    };
+    _this.handleRemove = _this.handleRemove.bind(Images_assertThisInitialized(_this));
+    return _this;
+  }
+
+  Images_createClass(Images, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      http.get('/images').then(function (_ref) {
+        var data = _ref.data;
+        var images = data.images;
+
+        _this2.setState({
+          images: images
+        });
+      })["catch"](function (error) {
+        Object(Notification["a" /* Notification */])(error, 'error');
+        console.log(error);
+      });
+    }
+  }, {
+    key: "handleRemove",
+    value: function handleRemove() {
+      var _this3 = this;
+
+      var removedImages = this.state.willBeRemoved.slice();
+
+      if (removedImages.length) {
+        var images = this.state.images.slice();
+        var restImages = images.filter(function (image) {
+          return !removedImages.includes(image);
+        });
+        http["delete"]('/remove-image-group', {
+          data: {
+            images: removedImages
+          }
+        }).then(function (_ref2) {
+          var data = _ref2.data;
+
+          _this3.setState({
+            images: restImages
+          });
+
+          var message = data.message,
+              type = data.type;
+          Object(Notification["a" /* Notification */])(message, type);
+        })["catch"](function (error) {
+          var _data = data,
+              message = _data.message,
+              type = _data.type;
+          Object(Notification["a" /* Notification */])(message, type);
+          console.log(error);
+        });
+      }
+    }
+  }, {
+    key: "onChange",
+    value: function onChange(image) {
+      var willBeRemoved = this.state.willBeRemoved.slice();
+      this.setState({
+        willBeRemoved: [].concat(Images_toConsumableArray(willBeRemoved), [image])
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+
+      var images = this.state.images;
+      return react_default.a.createElement("div", null, react_default.a.createElement(row["a" /* default */], {
+        gutter: 16
+      }, react_default.a.createElement(col["a" /* default */], {
+        span: 21
+      }, react_default.a.createElement(Images_Title, {
+        level: 2
+      }, "Images")), react_default.a.createElement(col["a" /* default */], {
+        span: 3
+      }, react_default.a.createElement(es_button["a" /* default */], {
+        onClick: this.handleRemove,
+        type: "danger",
+        icon: "delete",
+        block: true
+      }, "Remove"))), react_default.a.createElement(row["a" /* default */], {
+        gutter: 16
+      }, images.map(function (image, index) {
+        return react_default.a.createElement(col["a" /* default */], {
+          span: 6,
+          key: image
+        }, react_default.a.createElement("label", {
+          htmlFor: index,
+          className: "image-check"
+        }, react_default.a.createElement("input", {
+          id: index,
+          className: "image-check__input",
+          type: "checkbox",
+          onChange: function onChange() {
+            _this4.onChange(image);
+          }
+        }), react_default.a.createElement("div", {
+          className: "image-card"
+        }, react_default.a.createElement("img", {
+          src: "/uploads/images/".concat(image),
+          alt: ""
+        }))));
+      })));
+    }
+  }]);
+
+  return Images;
+}(react_default.a.Component);
+
+/* harmony default export */ var pages_Images = (Images_Images);
 // CONCATENATED MODULE: ./resources/admin/App.jsx
 
 
@@ -6365,6 +6534,7 @@ function (_React$Component) {
 
 
 var Content = layout["a" /* default */].Content;
+
 
 
 
@@ -6415,6 +6585,9 @@ function App() {
   }), react_default.a.createElement(react_router_Route, {
     path: "/admin/search/",
     component: pages_Search
+  }), react_default.a.createElement(react_router_Route, {
+    path: "/admin/images/",
+    component: pages_Images
   }))))));
 }
 

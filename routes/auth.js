@@ -3,8 +3,11 @@ const express = require('express');
 const router = express.Router();
 const passport = require("passport");
 
+// path
+const PATH = global.MODULE_PATH.AUTH_CONTROLLER;
+
 // controller
-const User = require('../app/controllers/auth/user.controller');
+const User = require(`${PATH}/user.controller`);
 
 router.get('/login', User.renderLogin);
 // router.get('/register', User.renderRegister);

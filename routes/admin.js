@@ -5,15 +5,18 @@ const router = express.Router();
 // services
 const upload = require('../app/services/upload');
 
+// path
+const PATH = global.MODULE_PATH.ADMIN_CONTROLLER;
+
 // controllers
-const Posts = require(`${global.MODULE_PATH.ADMIN_CONTROLLER}/posts.controller`);
-const Categories = require(`${global.MODULE_PATH.ADMIN_CONTROLLER}/categories.controller`);
-const Mail = require(`${global.MODULE_PATH.ADMIN_CONTROLLER}/mail.controller`);
-const Comments = require(`${global.MODULE_PATH.ADMIN_CONTROLLER}/comments.controller`);
-const Search = require(`${global.MODULE_PATH.ADMIN_CONTROLLER}/search.controller`);
-const User = require(`${global.MODULE_PATH.ADMIN_CONTROLLER}/user.controller`);
-const TinyMCE = require(`${global.MODULE_PATH.ADMIN_CONTROLLER}/tinymce.controller`);
-const Image = require(`${global.MODULE_PATH.ADMIN_CONTROLLER}/image.controller`);
+const Posts = require(`${PATH}/posts.controller`);
+const Categories = require(`${PATH}/categories.controller`);
+const Mail = require(`${PATH}/mail.controller`);
+const Comments = require(`${PATH}/comments.controller`);
+const Search = require(`${PATH}/search.controller`);
+const User = require(`${PATH}/user.controller`);
+const TinyMCE = require(`${PATH}/tinymce.controller`);
+const Image = require(`${PATH}/image.controller`);
 
 
 
@@ -29,7 +32,6 @@ router.delete('/remove-post', Posts.remove);
 router.post('/edit-post', Posts.edit);
 router.get('/edit-post/:id', Posts.renderEdit);
 router.post('/upload-image', upload.single('image'), Image.uploadImage);
-router.delete('/remove-image', Image.removeImage);
 
 // Categories
 router.get('/categories', Categories.renderAll);
@@ -52,6 +54,10 @@ router.get('/edit-user/:id', User.edit);
 // TinyMCE
 router.post('/image-upload', upload.single('file'), TinyMCE.uploadImage);
 
+// Images
+router.get('/images', Image.renderAll);
+router.delete('/remove-image', Image.removeImage);
+router.delete('/remove-image-group', Image.removeImageGroup);
 
 
 module.exports = router;

@@ -4,7 +4,7 @@ import uuidv4 from 'uuid/v4';
 import http from '../services/http';
 import { Notification } from '../components/Notification.jsx';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 class Categories extends React.Component {
   constructor(props) {
@@ -31,6 +31,7 @@ class Categories extends React.Component {
         <Row gutter={16}>
           <Col span={21}>
             <Title level={2}>Categories</Title>
+            <Text type="secondary" className='description'><sup>*</sup>Some posts may be in this category. After deleting such posts, you need to assign another category</Text>
           </Col>
           <Col span={3}>
             <Button

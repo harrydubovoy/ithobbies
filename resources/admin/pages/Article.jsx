@@ -9,7 +9,6 @@ import { Notification } from '../components/Notification.jsx';
 const { Title } = Typography;
 const { TextArea } = Input;
 
-
 class Article extends React.Component {
   constructor(props) {
     super(props);
@@ -53,7 +52,6 @@ class Article extends React.Component {
         }
       })
       .catch((error) => {
-        Notification(error, 'error');
         console.log(error);
       })
   }
@@ -211,7 +209,6 @@ class Article extends React.Component {
               </Form.Item>
             </Col>
           </Row>
-
 
           <Form.Item label="Title" hasFeedback>
             {getFieldDecorator('title', {

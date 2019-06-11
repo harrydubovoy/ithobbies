@@ -14,14 +14,15 @@ class Posts extends React.Component {
     super(props);
 
     this.state = {
-      posts: []
+      posts: [],
+      loading: true,
     };
   }
 
   componentDidMount() {
     http.get('/posts')
       .then(({ data }) => {
-        this.setState({ posts: data });
+        this.setState({ posts: data, loading: false });
       })
       .catch((error) => {
         Notification(error, 'error');
@@ -31,7 +32,7 @@ class Posts extends React.Component {
 
 
   render() {
-    const { posts } = this.state;
+    const { posts, loading } = this.state;
 
     return (
       <div>
@@ -46,7 +47,7 @@ class Posts extends React.Component {
           </Col>
         </Row>
 
-        <Table rowKey={record => record._id} dataSource={posts}>
+        <Table rowKey={record => record._id} dataSource={posts} loading={loading}>
           <Column
           title="Date"
           dataIndex="createdAt"

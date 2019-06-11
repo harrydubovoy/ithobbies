@@ -13,6 +13,9 @@ const morgan = require('morgan');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+// constants
+require('./constants');
+
 // .env
 require('dotenv').config();
 
@@ -66,9 +69,6 @@ app.use(passport.session());
 passport.use(new LocalStrategy(Users.authenticate()));
 passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
-
-// constants
-require('./constants');
 
 // database connect string
 const connect = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;

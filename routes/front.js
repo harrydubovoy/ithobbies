@@ -2,12 +2,15 @@
 const express = require('express');
 const router = express.Router();
 
+// path
+const PATH = global.MODULE_PATH.FRONT_CONTROLLER;;
+
 // Сontroller
-const Posts = require(`${global.MODULE_PATH.FRONT_CONTROLLER}/posts.controller`);
-const Comment = require(`${global.MODULE_PATH.FRONT_CONTROLLER}/comment.controller`);
-const Search = require(`${global.MODULE_PATH.FRONT_CONTROLLER}/search.controller`);
-const Mail = require(`${global.MODULE_PATH.FRONT_CONTROLLER}/mail.controller`);
-const Error = require(`${global.MODULE_PATH.FRONT_CONTROLLER}/error.controller`);
+const Posts = require(`${PATH}/posts.controller`);
+const Comment = require(`${PATH}/comment.controller`);
+const Search = require(`${PATH}/search.controller`);
+const Mail = require(`${PATH}/mail.controller`);
+const Error = require(`${PATH}/error.controller`);
 
 // Seaarch
 router.get('/search', Search.render);

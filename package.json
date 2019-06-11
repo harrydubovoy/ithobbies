@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start server": "node server.js",
-    "watch server": "nodemon server.js",
+    "start server": "cross-env NODE_ENV=production node server.js",
+    "watch server": "cross-env NODE_ENV=development nodemon server.js",
     "watch webpack": "webpack --watch --mode=development",
     "build webpack": "webpack --mode=production",
     "start gulp": "gulp default"

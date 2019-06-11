@@ -14,6 +14,7 @@ import Categories from './pages/Categories.jsx';
 import Article from './pages/Article.jsx';
 import Comments from './pages/Comments.jsx';
 import Search from './pages/Search.jsx';
+import Images from './pages/Images.jsx';
 
 function App() {
   return(
@@ -30,6 +31,7 @@ function App() {
               <Route path="/admin/article/:id" component={Article} />
               <Route path="/admin/comments/:id" component={Comments} />
               <Route path="/admin/search/" component={Search} />
+              <Route path="/admin/images/" component={Images} />
             </div>
           </Content>
         </Layout>

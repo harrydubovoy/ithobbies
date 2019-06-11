@@ -5,3 +5,11 @@
 .card-title {
   font-size: 0.9rem;
 }
+
+.card-btn {
+
+  @include media('sm') {
+    padding: 10px;
+    width: 100%;
+  }
+}

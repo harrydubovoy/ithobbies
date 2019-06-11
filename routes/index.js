@@ -10,7 +10,6 @@ const admin = require('./admin');
 const auth = require('./auth');
 const front = require('./front');
 
-
 router.use('/api', admin);
 router.use('/admin/*', User.isAuth, Home.render);
 // router.get('/admin/*', Home.render);
