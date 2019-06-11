@@ -74,9 +74,9 @@ block content
                                 - const author = comment.author
                                 - const text = comment.text
                                 - const date = formatedDate(comment.date)
-                                li.comments__item.js-comment__item(data-name=author)
+                                li.comments__item.js-comment__item
                                     .comments__head
-                                        .comments__name= author
+                                        .comments__name.js-comments__name(data-name=author)= author
                                         .comments__date= date
                                     .comments__text= text
 

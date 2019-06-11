@@ -39,7 +39,7 @@ function Aside() {
           </Link>
         </Menu.Item>
         <Menu.Item key="5">
-          <Link to="/admin/files">
+          <Link to="/admin/images">
             <Icon type="picture" />
             <span className="nav-text">Images</span>
           </Link>

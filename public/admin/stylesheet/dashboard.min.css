@@ -23193,3 +23193,35 @@ button {
 .aside-menu li:nth-last-child(2) {
     margin-top: auto;
 }
+
+.image-card {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.image-card img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 100%;
+    height: auto;
+}
+
+.image-check__input {
+    display: none;
+}
+
+.image-check__input:checked + .image-card {
+    opacity: 0.5;
+}
+
+.description {
+    display: block;
+    margin-bottom: 30px;
+}

@@ -15,7 +15,8 @@ class Posts extends React.Component {
 
     this.state = {
       posts: [],
-      string: ''
+      string: '',
+      loading: true
     };
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -26,12 +27,55 @@ class Posts extends React.Component {
     const string = sessionStorage.getItem('search');
     if( string ) {
       this.getPosts(string)
+    } else {
+      this.setState({loading: false});
     }
+  }
+
+  getPosts(string) {
+    http.get(`/search?search=${string}`)
+      .then(({ data }) => {
+        const { string, posts } = data;
+        this.setState({
+          string,
+          posts,
+          loading: false
+        });
+        sessionStorage.setItem('search', string);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+
+
+  handleRemove(_id) {
+    const posts = this.state.posts.slice();
+
+    http.delete('/remove-post', { data: { _id }})
+      .then(({ data }) => {
+        const filteredPosts = posts.filter((post) => post._id !== _id );
+        message.success(data);
+        this.setState({ posts: filteredPosts });
+      })
+      .catch((error) => {
+        message.error(error);
+      })
+  }
+
+  handleSearch(string) {
+    this.getPosts(string)
+  };
+
+  handleChange(event) {
+    const string = event.target.value;
+
+    this.setState({ string })
   }
 
 
   render() {
-    const { posts, string } = this.state;
+    const { posts, string, loading } = this.state;
 
     return (
       <div>
@@ -51,7 +95,7 @@ class Posts extends React.Component {
             />
           </Col>
         </Row>
-        <Table rowKey={record => record._id} dataSource={posts}>
+        <Table rowKey={record => record._id} dataSource={posts} loading={loading}>
           <Column
             title="Date"
             dataIndex="createdAt"
@@ -117,46 +161,6 @@ class Posts extends React.Component {
         </Table>
       </div>
     )
-  }
-
-  getPosts(string) {
-    http.get(`/search?search=${string}`)
-      .then(({ data }) => {
-        const { string, posts } = data;
-        this.setState({
-          string,
-          posts
-        });
-        sessionStorage.setItem('search', string);
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-  }
-
-
-  handleRemove(_id) {
-    const posts = this.state.posts.slice();
-
-    http.delete('/remove-post', { data: { _id }})
-      .then(({ data }) => {
-        const filteredPosts = posts.filter((post) => post._id !== _id );
-        message.success(data);
-        this.setState({ posts: filteredPosts });
-      })
-      .catch((error) => {
-        message.error(error);
-      })
-  }
-
-  handleSearch(string) {
-    this.getPosts(string)
-  };
-
-  handleChange(event) {
-    const string = event.target.value;
-
-    this.setState({ string })
   }
 }
 
