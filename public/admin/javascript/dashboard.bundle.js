@@ -4545,6 +4545,7 @@ var axios_default = /*#__PURE__*/__webpack_require__.n(axios);
 // CONCATENATED MODULE: ./resources/admin/services/http.js
 
 /* harmony default export */ var http = (axios_default.a.create({
+  // headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   baseURL: '/api'
 }));
 // EXTERNAL MODULE: ./node_modules/moment/moment.js
@@ -5555,6 +5556,28 @@ function handleBack(props) {
 }
 
 /* harmony default export */ var components_BackButton = (BackButton);
+// EXTERNAL MODULE: ./node_modules/antd/es/spin/index.js
+var spin = __webpack_require__(102);
+
+// CONCATENATED MODULE: ./resources/admin/components/Loader.jsx
+
+
+
+function Loader(_ref) {
+  var loading = _ref.loading;
+
+  if (loading) {
+    return react_default.a.createElement("div", {
+      className: "overlay-spiner"
+    }, react_default.a.createElement(spin["a" /* default */], {
+      size: "large"
+    }));
+  } else {
+    return null;
+  }
+}
+
+/* harmony default export */ var components_Loader = (Loader);
 // CONCATENATED MODULE: ./resources/admin/pages/Article.jsx
 function Article_typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { Article_typeof = function _typeof(obj) { return typeof obj; }; } else { Article_typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return Article_typeof(obj); }
 
@@ -5585,6 +5608,7 @@ function Article_setPrototypeOf(o, p) { Article_setPrototypeOf = Object.setProto
 
 
 
+
 var Article_Title = typography["a" /* default */].Title;
 var TextArea = input["a" /* default */].TextArea;
 
@@ -5603,6 +5627,7 @@ function (_React$Component) {
     _this.state = {
       imageUrl64: null,
       imageDefault: 'default-img.png',
+      imageLoading: false,
       categories: [],
       post: {
         image: null,
@@ -5695,11 +5720,15 @@ function (_React$Component) {
 
       var image = info.file.name;
       var thumb = "thumb-".concat(image);
+      this.setState({
+        imageLoading: true
+      });
 
       if (info.file.status === 'done') {
         getBase64(info.file.originFileObj, function (imageUrl64) {
           _this4.setState({
             imageUrl64: imageUrl64,
+            imageLoading: false,
             post: _objectSpread({}, _this4.state.post, {
               image: image,
               thumb: thumb
@@ -5715,6 +5744,9 @@ function (_React$Component) {
     value: function handleRemoveImage(image) {
       var _this5 = this;
 
+      this.setState({
+        imageLoading: true
+      });
       http["delete"]('/remove-image', {
         data: {
           image: image
@@ -5724,6 +5756,7 @@ function (_React$Component) {
 
         _this5.setState({
           imageUrl64: null,
+          imageLoading: false,
           post: _objectSpread({}, _this5.state.post, {
             image: '',
             thumb: ''
@@ -5768,7 +5801,8 @@ function (_React$Component) {
           post = _this$state.post,
           categories = _this$state.categories,
           imageUrl64 = _this$state.imageUrl64,
-          imageDefault = _this$state.imageDefault;
+          imageDefault = _this$state.imageDefault,
+          imageLoading = _this$state.imageLoading;
       var image = post.image,
           title = post.title,
           description = post.description,
@@ -5805,7 +5839,9 @@ function (_React$Component) {
         style: {
           backgroundImage: "url(".concat(imageUrl64 ? imageUrl64 : imageUrl, ")")
         }
-      }), react_default.a.createElement(es_form["a" /* default */].Item, {
+      }, react_default.a.createElement(components_Loader, {
+        loading: imageLoading
+      })), react_default.a.createElement(es_form["a" /* default */].Item, {
         label: "Image"
       }, getFieldDecorator('image', {
         rules: [{
@@ -6397,6 +6433,7 @@ function Images_setPrototypeOf(o, p) { Images_setPrototypeOf = Object.setPrototy
 
 
 
+
 var Images_Title = typography["a" /* default */].Title;
 
 var Images_Images =
@@ -6411,6 +6448,7 @@ function (_React$Component) {
 
     _this = Images_possibleConstructorReturn(this, Images_getPrototypeOf(Images).call(this, props));
     _this.state = {
+      imageLoading: false,
       images: [],
       willBeRemoved: []
     };
@@ -6447,6 +6485,9 @@ function (_React$Component) {
         var restImages = images.filter(function (image) {
           return !removedImages.includes(image);
         });
+        this.setState({
+          imageLoading: true
+        });
         http["delete"]('/remove-image-group', {
           data: {
             images: removedImages
@@ -6455,6 +6496,7 @@ function (_React$Component) {
           var data = _ref2.data;
 
           _this3.setState({
+            imageLoading: false,
             images: restImages
           });
 
@@ -6483,8 +6525,12 @@ function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
-      var images = this.state.images;
-      return react_default.a.createElement("div", null, react_default.a.createElement(row["a" /* default */], {
+      var _this$state = this.state,
+          images = _this$state.images,
+          imageLoading = _this$state.imageLoading;
+      return react_default.a.createElement("div", null, react_default.a.createElement(components_Loader, {
+        loading: imageLoading
+      }), react_default.a.createElement(row["a" /* default */], {
         gutter: 16
       }, react_default.a.createElement(col["a" /* default */], {
         span: 21
@@ -6514,11 +6560,11 @@ function (_React$Component) {
             _this4.onChange(image);
           }
         }), react_default.a.createElement("div", {
-          className: "image-card"
-        }, react_default.a.createElement("img", {
-          src: "/uploads/images/".concat(image),
-          alt: ""
-        }))));
+          className: "image-card",
+          style: {
+            backgroundImage: "url(/uploads/images/".concat(image, ")")
+          }
+        })));
       })));
     }
   }]);
@@ -6557,11 +6603,7 @@ function App() {
       overflow: 'initial'
     }
   }, react_default.a.createElement("div", {
-    style: {
-      padding: 20,
-      background: '#fff',
-      minHeight: '100vh'
-    }
+    className: "main-content"
   }, react_default.a.createElement(react_router_Route, {
     path: "/admin",
     exact: true,

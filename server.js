@@ -15,6 +15,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 // constants
 require('./constants');
+const { MAX_SIZE_LOGFILE, COOKIE_MAX_AGE, PAGINATE } = global;
 
 // .env
 require('dotenv').config();
@@ -27,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 // paginate
-app.use(paginate.middleware(9, 9));
+app.use(paginate.middleware(PAGINATE.limit, PAGINATE.maxLimit));
 
 //static files
 app.use(express.static(path.join(__dirname, 'public')));
@@ -39,7 +40,7 @@ app.use(session({
   secure: false,
   saveUninitialized: false,
   resave: false,
-  cookie: { maxAge: 43200000 }
+  cookie: { maxAge: COOKIE_MAX_AGE }
 }));
 
 // helmet
@@ -50,13 +51,12 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'),
 app.use(morgan('combined', { stream: accessLogStream }));
 
 fs.watchFile('access.log', (curr) => {
-
-  const max = 52428800; // 50Mb
+  const max = MAX_SIZE_LOGFILE;
   const size = curr.size;
 
   if(size >= max) {
     fs.writeFile('./access.log', '', () => {
-      console.log('logs was cleaned');
+      console.log('Logs was cleaned');
     });
   }
 });
@@ -70,18 +70,26 @@ passport.use(new LocalStrategy(Users.authenticate()));
 passport.serializeUser(Users.serializeUser());
 passport.deserializeUser(Users.deserializeUser());
 
+const {
+  DB_USERNAME,
+  DB_PASSWORD,
+  DB_HOST,
+  DB_PORT,
+  DB_NAME,
+  APP_PROTOCOL,
+  APP_HOST,
+  APP_PORT
+} = process.env;
+
 // database connect string
-const connect = `mongodb://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
+const connect = `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`;
 
 // start server
-mongoose.connect(connect, {useNewUrlParser: true, useCreateIndex: true}, err => {
+mongoose.connect(connect, {useNewUrlParser: true, useCreateIndex: true}, error => {
 
-  if (err) throw new Error;
+  if (error) console.error('Database Connect: ', error);
 
   app.use('/', require('./routes'));
 
-  app.listen(process.env.APP_PORT, () => {
-    console.log(`${process.env.APP_PROTOCOL}://${process.env.APP_HOST}:${process.env.APP_PORT}`);
-  })
-
+  app.listen(APP_PORT, () => console.log(`${APP_PROTOCOL}://${APP_HOST}:${APP_PORT}`))
 });

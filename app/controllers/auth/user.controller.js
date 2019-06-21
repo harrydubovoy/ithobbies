@@ -1,8 +1,10 @@
-// npm import
+// npm
 const passport = require("passport");
 
-// Models
-const { Users } = require(`${global.MODULE_PATH.MODEL}/user.model`);
+const { MODEL } = global.MODULE_PATH;
+
+// models
+const { Users } = require(`${MODEL}/user.model`);
 
 function renderLogin(req, res) {
   res.render('auth/layout')
@@ -17,9 +19,7 @@ function renderRegister(req, res) {
 function register(req, res) {
   const { username, password } = req.body;
   Users.register(new Users({ username }), password, function(err, user) {
-    if (err) {
-      console.log(err)
-    }
+    if (err) console.log(err);
 
     passport.authenticate('local')(req, res, function () {
       res.redirect('/admin');

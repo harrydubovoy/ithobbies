@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // path
-const PATH = global.MODULE_PATH.FRONT_CONTROLLER;;
+const PATH = global.MODULE_PATH.FRONT_CONTROLLER;
 
 // Сontroller
 const Posts = require(`${PATH}/posts.controller`);

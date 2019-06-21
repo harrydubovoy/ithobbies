@@ -23,7 +23,7 @@ function App() {
         <Route path="/admin" component={Aside} />
         <Layout style={{ marginLeft: 200 }}>
           <Content style={{ margin: 16, overflow: 'initial' }}>
-            <div style={{ padding: 20, background: '#fff', minHeight: '100vh' }}>
+            <div className='main-content'>
               <Route path="/admin" exact component={Dashboard} />
               <Route path="/admin/posts" component={Posts} />
               <Route path="/admin/categories/" component={Categories} />

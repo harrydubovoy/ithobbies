@@ -1,41 +1,32 @@
-
-
 // services
-const { crop } = require('../../services');
-const Image = require('../../services/image');
-
-function uploadImage (req, res) {
-  const file = req.file;
-
-  if(file) {
-    crop(file, 'medium');
-    res.send('Image uploaded');
-  } else {
-    res.status(400).send('Something went wrong');
-  }
-}
-
-function removeImage (req, res) {
-  const { image } = req.body;
-
-  Image.remove(image, res);
-}
-
-function removeImageGroup(req, res) {
-  const { images } = req.body;
-
-  images.forEach((image) => {
-    Image.remove(image, res);
-  })
-}
+const Image = require('../../services/image.service');
 
 function renderAll(req, res) {
-  Image.getAll(res);
+  Image.getAll((response) => {
+    res.json(response);
+  });
+}
+
+function upload (req, res) {
+  const { status, message } = Image.upload(req);
+  res.status(status).send(message);
+}
+
+function removeOne (req, res) {
+  Image.removeOne(req, (response) => {
+    res.send(response);
+  });
+}
+
+function removeGroup(req, res) {
+  Image.removeGroup(req, (response) => {
+    res.status(200).send(response);
+  });
 }
 
 module.exports = {
   renderAll,
-  uploadImage,
-  removeImage,
-  removeImageGroup
+  upload,
+  removeOne,
+  removeGroup
 };

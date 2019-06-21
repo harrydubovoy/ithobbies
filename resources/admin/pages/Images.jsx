@@ -3,6 +3,7 @@ import { Typography, Button, Row, Col } from 'antd';
 
 import http from '../services/http';
 import { Notification } from '../components/Notification.jsx';
+import Loader from '../components/Loader.jsx';
 
 const { Title } = Typography;
 
@@ -11,6 +12,7 @@ class Images extends React.Component {
     super(props);
 
     this.state = {
+      imageLoading: false,
       images: [],
       willBeRemoved: []
     };
@@ -22,7 +24,7 @@ class Images extends React.Component {
     http.get('/images')
       .then(({ data }) => {
         const { images } = data;
-          this.setState({ images });
+        this.setState({ images });
       })
       .catch((error) => {
         Notification(error, 'error');
@@ -40,9 +42,12 @@ class Images extends React.Component {
         return !removedImages.includes( image );
       });
 
+      this.setState({ imageLoading: true });
+
       http.delete('/remove-image-group', { data: { images: removedImages }})
         .then(({ data }) => {
           this.setState({
+            imageLoading: false,
             images: restImages
           });
           const { message, type } = data;
@@ -68,10 +73,11 @@ class Images extends React.Component {
   }
 
   render() {
-    const { images } = this.state;
+    const { images, imageLoading } = this.state;
 
     return (
       <div>
+        <Loader loading={imageLoading} />
         <Row gutter={16}>
           <Col span={21}>
             <Title level={2}>Images</Title>
@@ -91,9 +97,7 @@ class Images extends React.Component {
                 <Col span={6} key={image}>
                   <label htmlFor={index} className='image-check'>
                     <input id={index} className='image-check__input' type="checkbox" onChange={() => { this.onChange(image) }} />
-                    <div className='image-card'>
-                      <img src={`/uploads/images/${image}`} alt=""/>
-                    </div>
+                    <div className='image-card' style={{ backgroundImage: `url(/uploads/images/${image})` }} />
                   </label>
                 </Col>
               )

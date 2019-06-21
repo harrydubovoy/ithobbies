@@ -1,49 +1,40 @@
+const { MODEL } = global.MODULE_PATH;
+
 // models
-const { PostsModel } = require(`${global.MODULE_PATH.MODEL}/post.model`);
+const CommentModel = require(`${MODEL}/admin/comments.model`);
 
 async function render (req, res) {
-    const _id = req.params.id;
-    const post = await PostsModel.findById({ _id });
-    const comments = post.comments.reverse();
-
-    res.json({comments})
+  CommentModel.getAll(req)
+    .then((comments) => {
+      res.json({comments})
+    })
+    .catch((error) => {
+      console.log(error)
+    });
 }
 
 async function approve (req, res) {
-    const postId = req.body.postId;
-    const commentId = req.body.commentId;
-    const post = await PostsModel.findById({ _id: postId });
-    const comments = post.comments;
-    const comment = comments.id(commentId);
-
-    comment.approved = true;
-
-    try {
-        await post.save();
-        res.send('Comment approved');
-    } catch (e) {
-        res.send('Something went wrong', e);
-    }
+  CommentModel.approve(req)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      console.log(error)
+    });
 }
 
-async function remove (req, res) {
-    const postId = req.body.postId;
-    const commentId = req.body.commentId;
-    const post = await PostsModel.findById({ _id: postId });
-    const comments = post.comments;
-
-    comments.id(commentId).remove();
-
-    try {
-        await post.save();
-        res.send('Comment deleted');
-    } catch (e) {
-        res.send('Something went wrong', e);
-    }
+function remove (req, res) {
+  CommentModel.remove(req)
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((error) => {
+      console.log(error)
+    });
 }
 
 module.exports = {
-    render,
-    approve,
-    remove
+  render,
+  approve,
+  remove
 };

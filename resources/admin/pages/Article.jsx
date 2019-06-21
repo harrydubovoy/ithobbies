@@ -1,10 +1,11 @@
 import React from "react"
-import { Form, Icon, Upload, Input, Button, Radio, Select, Col, Row, Typography } from "antd";
+import { Form, Icon, Upload, Input, Button, Radio, Select, Col, Row, Typography, Spin } from "antd";
 import { Editor } from '@tinymce/tinymce-react';
 import http from "../services/http";
 import { getBase64, redirect } from '../services'
 import BackButton from "../components/BackButton.jsx";
 import { Notification } from '../components/Notification.jsx';
+import Loader from '../components/Loader.jsx';
 
 const { Title } = Typography;
 const { TextArea } = Input;
@@ -18,6 +19,7 @@ class Article extends React.Component {
     this.state = {
       imageUrl64: null,
       imageDefault: 'default-img.png',
+      imageLoading: false,
 
       categories: [],
       post: {
@@ -91,11 +93,13 @@ class Article extends React.Component {
   handleUploadImage(info) {
     const image = info.file.name;
     const thumb = `thumb-${image}`;
+    this.setState({ imageLoading: true });
 
     if (info.file.status === 'done') {
       getBase64(info.file.originFileObj, imageUrl64 => {
         this.setState({
           imageUrl64,
+          imageLoading: false,
           post: {
             ...this.state.post,
             image,
@@ -108,10 +112,12 @@ class Article extends React.Component {
   }
 
   handleRemoveImage(image) {
+    this.setState({ imageLoading: true });
     http.delete('/remove-image', { data: { image }})
       .then(({ data }) => {
         this.setState({
           imageUrl64: null,
+          imageLoading: false,
           post: {
             ...this.state.post,
             image: '',
@@ -142,7 +148,7 @@ class Article extends React.Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const _id = this._id;
-    const { post, categories, imageUrl64, imageDefault } = this.state;
+    const { post, categories, imageUrl64, imageDefault, imageLoading } = this.state;
     const {
       image,
       title,
@@ -190,6 +196,7 @@ class Article extends React.Component {
                   backgroundImage: `url(${imageUrl64 ? imageUrl64 : imageUrl})`
                 }}
               >
+                <Loader loading={imageLoading} />
               </div>
               <Form.Item label="Image">
                 {getFieldDecorator('image', {

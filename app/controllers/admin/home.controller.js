@@ -1,10 +1,12 @@
+const { MODEL } = global.MODULE_PATH;
+
 // models
-const { PostsModel } = require(`${global.MODULE_PATH.MODEL}/post.model`);
+const { PostsModel } = require(`${MODEL}/post.model`);
 
 async function render (req, res) {
-    res.render('admin/layout')
+  res.render('admin/layout')
 }
 
 module.exports = {
-    render
+  render
 };

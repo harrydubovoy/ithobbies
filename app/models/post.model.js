@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // services
-const { slugify } = require('../services');
+const { slugify } = require('../services/text.service');
 
 const postsSchema = new Schema({
     image: { type: String, required: true },
